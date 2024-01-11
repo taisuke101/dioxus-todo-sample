@@ -1,0 +1,11 @@
+[package]
+name = "models"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "models"
+path = "src/lib.rs"
+
+[dependencies]
+dioxus.workspace = true
