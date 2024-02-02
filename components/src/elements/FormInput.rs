@@ -7,6 +7,7 @@ pub fn FormInput<'a>(
     label: &'a str,
     title: &'a str,
     placeholder: &'a str,
+    value: &'a str,
     on_input: EventHandler<'a, FormEvent>,
 ) -> Element {
     cx.render(rsx! {
@@ -18,6 +19,7 @@ pub fn FormInput<'a>(
                 id: "{label}",
                 placeholder: "{placeholder}",
                 class: "form-input",
+                value: "{value}",
                 oninput: move |e| on_input.call(e)
             }
         }
