@@ -47,30 +47,21 @@ pub fn Title<'a>(
         style { include_str!("./Title.scss") }
     };
 
-    cx.render(match heading_type {
-        HeadingType::H1 => {
-            rsx! {
-                style_sheet,
+    cx.render(rsx! {
+        style_sheet,
+        match heading_type {
+            HeadingType::H1 => rsx! {
                 h1 { class: format_args!("text-container {} {}", text_size, text_align), "{title}" }
-            }
-        }
-        HeadingType::H2 => {
-            rsx! {
-                style_sheet,
+            },
+            HeadingType::H2 => rsx! {
                 h2 { class: format_args!("text-container {} {}", text_size, text_align), "{title}" }
-            }
-        }
-        HeadingType::H3 => {
-            rsx! {
-                style_sheet,
+            },
+            HeadingType::H3 => rsx! {
                 h3 { class: format_args!("text-container {} {}", text_size, text_align), "{title}" }
-            }
-        }
-        HeadingType::H4 => {
-            rsx! {
-                style_sheet,
+            },
+            HeadingType::H4 => rsx! {
                 h4 { class: format_args!("text-container {} {}", text_size, text_align), "{title}" }
-            }
+            },
         }
     })
 }
