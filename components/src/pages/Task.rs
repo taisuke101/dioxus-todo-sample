@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::elements::Button::{Button, ButtonType};
+use crate::elements::Button::{Button, ButtonColor, ButtonType};
 use crate::elements::Stack::{Direction, Gap, Stack};
 use crate::elements::Title::{HeadingType, TextAlign, TextSize, Title};
 use crate::layouts::{Header, TaskCard, TaskForm};
@@ -50,13 +50,30 @@ pub fn TaskPage(cx: Scope) -> Element {
         match is_display_form.get() {
             true => {
                 rsx!(
-                    TaskForm { tasks: tasks }
+                    TaskForm { on_submit: move |event: &Task| {
+                        tasks
+                            .modify(|value| {
+                                [
+                                    &value[..],
+                                    &[
+                                        Task {
+                                            id: value.len() + 1,
+                                            ..event.clone()
+                                        },
+                                    ],
+                                ]
+                                    .concat()
+                            });
+
+                        is_display_form.set(false);
+                    } }
                 )
             },
             false => {
                 rsx!(
                     Button {
-                        button_type: ButtonType::Secondary,
+                        button_type: ButtonType::Button,
+                        button_color: ButtonColor::Secondary,
                         title: "Add Task",
                         on_click: move |_| is_display_form.set(true)
                     }
